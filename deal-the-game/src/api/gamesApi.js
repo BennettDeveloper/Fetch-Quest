@@ -59,6 +59,9 @@ export const fetchGameById = async (gameId, storesMap = {}) => {
     releaseDate: rawgMetadata?.released || 'Unknown',
     rawgId: rawgMetadata?.rawgId || null,
     ratingsCount: rawgMetadata?.ratingsCount || 0,
+    backgroundImage: rawgMetadata?.backgroundImage || null,
+    minRequirements: rawgMetadata?.minRequirements || [],
+    recommendedRequirements: rawgMetadata?.recommendedRequirements || [],
     offers: deals.map((deal) => ({
       id: deal.dealID,
       store: storesMap[deal.storeID]?.name || `Store #${deal.storeID}`,

@@ -1,11 +1,18 @@
 import { API } from '../constants/api';
 
+const dealsCache = new Map();
+
 export const fetchFeaturedDeals = async (storesMap = {}, params = {}) => {
   const searchParams = new URLSearchParams({
     pageSize: 20,
     sortBy: 'DealRating',
     ...params,
   });
+
+  const cacheKey = searchParams.toString();
+  if (dealsCache.has(cacheKey)) {
+    return dealsCache.get(cacheKey);
+  }
 
   const response = await fetch(
     `${API.CHEAPSHARK_BASE}${API.ENDPOINTS.DEALS}?${searchParams}`
@@ -17,8 +24,9 @@ export const fetchFeaturedDeals = async (storesMap = {}, params = {}) => {
 
   const data = await response.json();
 
-  return data.map((deal) => ({
+  const mapped = data.map((deal) => ({
     id: deal.gameID,
+    dealId: deal.dealID,
     title: deal.title,
     image: deal.thumb,
     salePrice: deal.salePrice,
@@ -27,6 +35,9 @@ export const fetchFeaturedDeals = async (storesMap = {}, params = {}) => {
     dealRating: parseFloat(deal.dealRating).toFixed(1),
     store: storesMap[deal.storeID]?.name || `Store #${deal.storeID}`,
   }));
+
+  dealsCache.set(cacheKey, mapped);
+  return mapped;
 };
 
 export const searchDealsByTitle = async (title, storesMap = {}) => {

@@ -424,6 +424,140 @@
   border-radius: 6px;
 }
 
+/* ABOUT SECTION */
+.about-section {
+  background: #12192b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;
+  padding: 1.75rem;
+}
+
+.about-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.about-layout--split {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 2rem;
+  align-items: start;
+}
+
+.about-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  min-width: 0;
+}
+
+.about-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #f5f7ff;
+  margin: 0;
+}
+
+.about-description p {
+  color: #b8c2dd;
+  line-height: 1.8;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.about-read-more {
+  background: none;
+  border: none;
+  color: #7c9cff;
+  font-size: 0.88rem;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 0.5rem;
+  display: block;
+}
+
+.about-read-more:hover {
+  text-decoration: underline;
+}
+
+.about-banner {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.about-banner-image {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  max-height: 280px;
+}
+
+/* SYSTEM REQUIREMENTS */
+.about-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.req-section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f5f7ff;
+  margin: 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.req-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.req-block-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #5ea7ff;
+  margin: 0;
+}
+
+.req-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.req-row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.req-key {
+  color: #7a8aac;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.req-value {
+  color: #c8d2ee;
+}
+
+@media (max-width: 960px) {
+  .about-layout--split {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* INSIGHT CARDS (DealScore, DealContext, PricePrediction) */
 .insight-card {
   background: #12192b;

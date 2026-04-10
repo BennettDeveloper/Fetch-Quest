@@ -1,6 +1,6 @@
 export const API = {
-  CHEAPSHARK_BASE: 'https://www.cheapshark.com/api/1.0',
-  RAWG_BASE: 'https://api.rawg.io/api',
+  CHEAPSHARK_BASE: '/api/cheapshark',
+  RAWG_BASE: '/api/rawg',
 
   ENDPOINTS: {
     DEALS: '/deals',

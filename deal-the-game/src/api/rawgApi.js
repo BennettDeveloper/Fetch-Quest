@@ -55,6 +55,21 @@ export const fetchRawgGameDetails = async (rawgGameId) => {
   return response.json();
 };
 
+const parsePcRequirements = (raw) => {
+  if (!raw) return [];
+  return raw
+    .split(/\r?\n/)
+    .map((line) => {
+      const colonIdx = line.indexOf(':');
+      if (colonIdx === -1) return null;
+      const key = line.slice(0, colonIdx).trim();
+      const value = line.slice(colonIdx + 1).trim();
+      if (!value || key.toLowerCase() === 'minimum' || key.toLowerCase() === 'recommended') return null;
+      return { key, value };
+    })
+    .filter(Boolean);
+};
+
 export const fetchRawgSimilarGames = async (genreSlugs, excludeRawgId) => {
   if (!RAWG_API_KEY || !genreSlugs?.length) return [];
 
@@ -81,6 +96,10 @@ export const fetchRawgMetadataByTitle = async (title) => {
 
   const details = await fetchRawgGameDetails(match.id);
 
+  const pcPlatform = details.platforms?.find(
+    (p) => p.platform?.slug === 'pc' || p.platform?.name === 'PC'
+  );
+
   return {
     rawgId: details.id,
     title: details.name || title,
@@ -94,6 +113,8 @@ export const fetchRawgMetadataByTitle = async (title) => {
     developers: details.developers?.map((developer) => developer.name) || [],
     platforms: details.platforms?.map((item) => item.platform?.name).filter(Boolean) || [],
     ratingsCount: details.ratings_count || 0,
+    minRequirements: parsePcRequirements(pcPlatform?.requirements?.minimum),
+    recommendedRequirements: parsePcRequirements(pcPlatform?.requirements?.recommended),
     screenshots: [],
   };
 };

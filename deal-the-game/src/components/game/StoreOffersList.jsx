@@ -10,7 +10,7 @@ const StoreOffersList = ({ offers = [] }) => {
 
       <div className="offers-list">
         {offers.map((offer) => (
-          <div className="offer-card">
+          <div key={offer.dealID || offer.id} className="offer-card">
   <div className="offer-left">
     <h4>{offer.store}</h4>
     <p className="offer-price">${offer.price}</p>
