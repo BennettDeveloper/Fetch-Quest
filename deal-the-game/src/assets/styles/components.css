@@ -1,0 +1,145 @@
+.brand-logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #7c9cff;
+}
+
+.search-bar {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.search-bar input {
+  width: 260px;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #161d33;
+  color: white;
+}
+
+.search-bar button,
+.offer-card button {
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #6e7cff, #8b5cf6);
+  color: white;
+  cursor: pointer;
+}
+
+.filters-panel,
+.price-panel,
+.game-stats-card,
+.offer-card,
+.game-card {
+  background: #12192b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+}
+
+.filters-panel {
+  padding: 1.25rem;
+  min-width: 260px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.filter-group select {
+  padding: 0.75rem;
+  border-radius: 12px;
+  background: #1a2238;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.section-header {
+  margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.25rem;
+}
+
+.section-header p {
+  color: #9ca8c7;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+.game-card {
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-4px);
+}
+
+.game-card-image {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+}
+
+.game-card-content {
+  padding: 1rem;
+}
+
+.game-card-price {
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #77f2a8;
+}
+
+.game-card-store {
+  color: #9ca8c7;
+  margin-top: 0.35rem;
+}
+
+.loading-spinner {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.spinner-circle {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.15);
+  border-top-color: #7c9cff;
+  animation: spin 0.8s linear infinite;
+}
+
+.error-message {
+  padding: 1rem;
+  border-radius: 14px;
+  background: rgba(255, 80, 80, 0.12);
+  border: 1px solid rgba(255, 80, 80, 0.3);
+  color: #ffb3b3;
+}
+
+.offer-card {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
