@@ -1,0 +1,80 @@
+import { API } from '../constants/api';
+import { cleanGameTitle } from '../utils/cleanGameTitle';
+
+const RAWG_API_KEY = import.meta.env.VITE_RAWG_API_KEY;
+
+const buildRawgUrl = (path, params = {}) => {
+  const url = new URL(`${API.RAWG_BASE}${path}`);
+  url.searchParams.set('key', RAWG_API_KEY);
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && value !== '') {
+      url.searchParams.set(key, value);
+    }
+  });
+
+  return url.toString();
+};
+
+export const searchRawgGameByTitle = async (title) => {
+  if (!RAWG_API_KEY) {
+    throw new Error('Missing RAWG API key.');
+  }
+
+  const cleanedTitle = cleanGameTitle(title);
+
+  const response = await fetch(
+    buildRawgUrl(API.ENDPOINTS.RAWG_GAMES, {
+      search: cleanedTitle,
+      search_precise: true,
+      page_size: 5,
+    })
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to search RAWG.');
+  }
+
+  const data = await response.json();
+  return data.results?.[0] || null;
+};
+
+export const fetchRawgGameDetails = async (rawgGameId) => {
+  if (!RAWG_API_KEY) {
+    throw new Error('Missing RAWG API key.');
+  }
+
+  const response = await fetch(
+    buildRawgUrl(`${API.ENDPOINTS.RAWG_GAMES}/${rawgGameId}`)
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch RAWG game details.');
+  }
+
+  return response.json();
+};
+
+export const fetchRawgMetadataByTitle = async (title) => {
+  const match = await searchRawgGameByTitle(title);
+
+  if (!match) {
+    return null;
+  }
+
+  const details = await fetchRawgGameDetails(match.id);
+
+  return {
+    rawgId: details.id,
+    title: details.name || title,
+    description: details.description_raw || '',
+    backgroundImage: details.background_image || details.background_image_additional || '',
+    released: details.released || 'Unknown',
+    metacritic: details.metacritic ?? 'N/A',
+    genres: details.genres?.map((genre) => genre.name) || [],
+    publishers: details.publishers?.map((publisher) => publisher.name) || [],
+    developers: details.developers?.map((developer) => developer.name) || [],
+    platforms: details.platforms?.map((item) => item.platform?.name).filter(Boolean) || [],
+    screenshots: [],
+  };
+};

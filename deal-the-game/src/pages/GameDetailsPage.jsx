@@ -6,6 +6,9 @@ import GameHero from '../components/game/GameHero';
 import PricePanel from '../components/game/PricePanel';
 import StoreOffersList from '../components/game/StoreOffersList';
 import GameStatsCard from '../components/game/GameStatsCard';
+import GameDescriptionCard from '../components/game/GameDescriptionCard';
+import PlatformTabs from '../components/game/PlatformTabs';
+import SectionTabs from '../components/game/SectionTabs';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import ErrorMessage from '../components/common/ErrorMessage';
 import { fetchGameById } from '../api/gamesApi';
@@ -46,14 +49,21 @@ const GameDetailsPage = () => {
 
         {!loading && !error && game && (
           <div className="game-details-page">
+            <PlatformTabs game={game} />
             <GameHero game={game} />
+            <SectionTabs />
 
-            <div className="game-details-grid">
-              <PricePanel game={game} />
-              <GameStatsCard game={game} />
+            <div className="game-content-layout">
+              <div className="game-main-column">
+                <StoreOffersList offers={game.offers} />
+                <GameDescriptionCard description={game.description} />
+              </div>
+
+              <div className="game-side-column">
+                <PricePanel game={game} />
+                <GameStatsCard game={game} />
+              </div>
             </div>
-
-            <StoreOffersList offers={game.offers} />
           </div>
         )}
       </PageContainer>

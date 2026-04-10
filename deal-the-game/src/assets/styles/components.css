@@ -77,57 +77,217 @@
   gap: 1.5rem;
 }
 
-.game-card {
+.game-details-page {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  min-height: 420px;
+  gap: 2rem;
+}
+
+/* Top hero card */
+.game-hero-card {
+  display: grid;
+  grid-template-columns: 280px 1fr 280px;
+  gap: 2rem;
+  padding: 2rem;
   background: #12192b;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 20px;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  border-radius: 24px;
+  align-items: center;
 }
 
-.game-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(124, 156, 255, 0.35);
+.game-hero-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.game-card-image {
+.game-hero-image-wrapper {
   width: 100%;
-  height: 220px;
-  object-fit: cover;
+  max-width: 260px;
+  height: 160px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #1a2238, #0d1324);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+}
+
+.game-hero-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
   display: block;
 }
 
-.game-card-content {
+.game-hero-main h1 {
+  color: #f5f7ff;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+
+.game-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.meta-pill {
+  background: #1a2238;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #c8d2ee;
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+}
+
+.game-hero-summary {
+  color: #b8c2dd;
+  line-height: 1.7;
+  max-width: 700px;
+  font-size: 1.05rem;
+}
+
+.game-hero-side {
+  display: flex;
+  justify-content: center;
+}
+
+.hero-price-box {
+  width: 100%;
+  background: #0f1628;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 1.5rem;
+}
+
+.hero-price-box h3 {
+  color: #c9d3ee;
+  font-size: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.hero-retail-price {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #f5f7ff;
+  margin-bottom: 1rem;
+}
+
+.hero-sale-price {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #77f2a8;
+  margin-bottom: 0.5rem;
+}
+
+.hero-price-date {
+  color: #9ca8c7;
+  font-size: 0.95rem;
+}
+
+.hero-price-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 1rem 0;
+}
+
+/* Second row cards */
+
+
+.price-panel,
+.game-stats-card,
+.store-offers-list,
+.game-description-card {
+  background: #12192b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;
+  padding: 1.5rem;
+}
+
+.price-panel h2,
+.game-stats-card h2,
+.store-offers-list h2,
+.game-description-card h2 {
+  color: #f5f7ff;
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.current-price {
+  font-size: 2.2rem;
+  color: #77f2a8;
+  font-weight: 800;
+  margin: 0.75rem 0;
+}
+
+.retail-price,
+.discount-percent,
+.game-stats-card li,
+.game-description-card p,
+.store-offers-list p,
+.store-offers-list small {
+  color: #b8c2dd;
+}
+
+.game-stats-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.game-stats-card li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.game-description-card p {
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+/* Offers */
+.offers-list {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  padding: 1rem;
-  flex: 1;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
-.game-card-content h3 {
-  font-size: 1.8rem;
-  line-height: 1.3;
-  min-height: 58px;
-}
-
-.game-card-price {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #77f2a8;
-}
-
-.game-card-store-row {
+.offer-card {
+  padding: 1rem 1.25rem;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 0.5rem;
-  color: #9ca8c7;
-  margin-top: auto;
+  border-radius: 18px;
+  background: #0f1628;
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+.offers-subtitle {
+  color: #9ca8c7;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .game-hero-card {
+    grid-template-columns: 1fr;
+  }
+
+  .game-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .game-hero-side {
+    justify-content: flex-start;
+  }
+}
 .store-logo {
   width: 18px;
   height: 18px;

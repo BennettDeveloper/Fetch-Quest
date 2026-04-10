@@ -7,7 +7,9 @@ const GameStatsCard = ({ game }) => {
       <ul>
         <li><strong>Genre:</strong> {game.genre}</li>
         <li><strong>Publisher:</strong> {game.publisher}</li>
-        <li><strong>Review Score:</strong> {game.reviewScore}</li>
+        <li><strong>Developer:</strong> {game.developer}</li>
+        <li><strong>Platforms:</strong> {game.platforms}</li>
+        <li><strong>Metacritic:</strong> {game.reviewScore}</li>
         <li><strong>Release Date:</strong> {game.releaseDate}</li>
         <li><strong>Total Offers:</strong> {game.offers.length}</li>
       </ul>
