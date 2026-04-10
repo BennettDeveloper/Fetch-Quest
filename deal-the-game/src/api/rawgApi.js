@@ -4,7 +4,7 @@ import { cleanGameTitle } from '../utils/cleanGameTitle';
 const RAWG_API_KEY = import.meta.env.VITE_RAWG_API_KEY;
 
 const buildRawgUrl = (path, params = {}) => {
-  const url = new URL(`${API.RAWG_BASE}${path}`);
+  const url = new URL(`${API.RAWG_BASE}${path}`, window.location.origin);
   url.searchParams.set('key', RAWG_API_KEY);
 
   Object.entries(params).forEach(([key, value]) => {

@@ -71,7 +71,7 @@ const GameDetailsPage = () => {
             <div className="game-content-layout">
               <div className="game-main-column">
                 <StoreOffersList offers={game.offers} />
-                <GameDescriptionCard description={game.description} />
+                <GameDescriptionCard game={game} />
                 <AlternativesSection
                   gameTitle={game.title}
                   alternatives={alternatives}

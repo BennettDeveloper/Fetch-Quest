@@ -20,7 +20,9 @@ const RequirementsTable = ({ title, rows }) => {
 };
 
 const GameDescriptionCard = ({ game }) => {
-  const description = game.description || '';
+  if (!game) return null;
+
+  const description = game?.description || '';
   const hasLongDescription = description.length > COLLAPSE_LENGTH;
   const [expanded, setExpanded] = useState(false);
 
@@ -30,7 +32,7 @@ const GameDescriptionCard = ({ game }) => {
       : description;
 
   const hasRequirements =
-    game.minRequirements?.length > 0 || game.recommendedRequirements?.length > 0;
+    game?.minRequirements?.length > 0 || game?.recommendedRequirements?.length > 0;
 
   return (
     <section className="about-section">
