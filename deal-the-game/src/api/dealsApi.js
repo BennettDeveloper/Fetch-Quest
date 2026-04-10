@@ -1,8 +1,14 @@
 import { API } from '../constants/api';
 
-export const fetchFeaturedDeals = async (storesMap = {}) => {
+export const fetchFeaturedDeals = async (storesMap = {}, params = {}) => {
+  const searchParams = new URLSearchParams({
+    pageSize: 20,
+    sortBy: 'DealRating',
+    ...params,
+  });
+
   const response = await fetch(
-    `${API.CHEAPSHARK_BASE}${API.ENDPOINTS.DEALS}?pageSize=12`
+    `${API.CHEAPSHARK_BASE}${API.ENDPOINTS.DEALS}?${searchParams}`
   );
 
   if (!response.ok) {
@@ -18,6 +24,7 @@ export const fetchFeaturedDeals = async (storesMap = {}) => {
     salePrice: deal.salePrice,
     normalPrice: deal.normalPrice,
     savings: Number(deal.savings).toFixed(0),
+    dealRating: parseFloat(deal.dealRating).toFixed(1),
     store: storesMap[deal.storeID]?.name || `Store #${deal.storeID}`,
   }));
 };

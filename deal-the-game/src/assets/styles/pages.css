@@ -1,13 +1,77 @@
-.discover-layout {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 1.5rem;
-}
-
-.discover-content {
+/* DISCOVER PAGE */
+.discover-page {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.25rem;
+}
+
+.platform-tabs-bar {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.platform-tab-btn {
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #12192b;
+  color: #c8d2ee;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.platform-tab-btn.active {
+  background: #1e2d50;
+  border-color: #5ea7ff;
+  color: #fff;
+}
+
+.platform-tab-btn.inactive {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.deal-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.deal-preset-pill {
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #12192b;
+  color: #b8c2dd;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+
+.deal-preset-pill:hover {
+  background: #1a2540;
+  color: #fff;
+}
+
+.deal-preset-pill.active {
+  background: linear-gradient(135deg, #6e7cff, #8b5cf6);
+  border-color: transparent;
+  color: #fff;
+}
+
+.discover-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.deals-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
 }
 
 .game-details-page {

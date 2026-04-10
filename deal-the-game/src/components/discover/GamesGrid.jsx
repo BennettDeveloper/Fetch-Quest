@@ -1,9 +1,8 @@
-import React from 'react';
 import GameCard from './GameCard';
 
 const GamesGrid = ({ games = [] }) => {
   return (
-    <div className="games-grid">
+    <div className="deals-list">
       {games.map((game) => (
         <GameCard key={game.id} game={game} />
       ))}
