@@ -2,10 +2,11 @@ import { API } from '../constants/api';
 
 const dealsCache = new Map();
 
-export const fetchFeaturedDeals = async (storesMap = {}, params = {}) => {
+export const fetchFeaturedDeals = async (storesMap = {}, params = {}, pageNumber = 0) => {
   const searchParams = new URLSearchParams({
     pageSize: 20,
     sortBy: 'DealRating',
+    pageNumber,
     ...params,
   });
 
@@ -22,9 +23,10 @@ export const fetchFeaturedDeals = async (storesMap = {}, params = {}) => {
     throw new Error('Failed to fetch featured deals.');
   }
 
+  const totalPages = parseInt(response.headers.get('X-Total-Page-Count') || '1', 10);
   const data = await response.json();
 
-  const mapped = data.map((deal) => ({
+  const deals = data.map((deal) => ({
     id: deal.gameID,
     dealId: deal.dealID,
     title: deal.title,
@@ -36,22 +38,30 @@ export const fetchFeaturedDeals = async (storesMap = {}, params = {}) => {
     store: storesMap[deal.storeID]?.name || `Store #${deal.storeID}`,
   }));
 
-  dealsCache.set(cacheKey, mapped);
-  return mapped;
+  const result = { deals, totalPages };
+  dealsCache.set(cacheKey, result);
+  return result;
 };
 
-export const searchDealsByTitle = async (title, storesMap = {}) => {
+export const searchDealsByTitle = async (title, storesMap = {}, pageNumber = 0) => {
+  const searchParams = new URLSearchParams({
+    title,
+    pageSize: 24,
+    pageNumber,
+  });
+
   const response = await fetch(
-    `${API.CHEAPSHARK_BASE}${API.ENDPOINTS.DEALS}?title=${encodeURIComponent(title)}&pageSize=24`
+    `${API.CHEAPSHARK_BASE}${API.ENDPOINTS.DEALS}?${searchParams}`
   );
 
   if (!response.ok) {
     throw new Error('Failed to search for games.');
   }
 
+  const totalPages = parseInt(response.headers.get('X-Total-Page-Count') || '1', 10);
   const data = await response.json();
 
-  return data.map((deal) => ({
+  const deals = data.map((deal) => ({
     id: `${deal.gameID}-${deal.storeID}-${deal.dealID}`,
     gameId: deal.gameID,
     title: deal.title,
@@ -61,4 +71,6 @@ export const searchDealsByTitle = async (title, storesMap = {}) => {
     savings: Number(deal.savings).toFixed(0),
     store: storesMap[deal.storeID]?.name || `Store #${deal.storeID}`,
   }));
+
+  return { deals, totalPages };
 };

@@ -5,6 +5,7 @@ import DealPresets from '../components/discover/DealPresets';
 import GamesGrid from '../components/discover/GamesGrid';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import ErrorMessage from '../components/common/ErrorMessage';
+import Pagination from '../components/common/Pagination';
 import { fetchFeaturedDeals } from '../api/dealsApi';
 import { fetchStores } from '../api/storesApi';
 
@@ -21,6 +22,8 @@ const DiscoverPage = () => {
   const [error, setError] = useState('');
   const [activePreset, setActivePreset] = useState('best');
   const [presetParams, setPresetParams] = useState({ sortBy: 'DealRating' });
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     const loadDeals = async () => {
@@ -28,8 +31,9 @@ const DiscoverPage = () => {
         setLoading(true);
         setError('');
         const storesMap = await fetchStores();
-        const deals = await fetchFeaturedDeals(storesMap, presetParams);
+        const { deals, totalPages: pages } = await fetchFeaturedDeals(storesMap, presetParams, currentPage);
         setGames(deals);
+        setTotalPages(pages);
       } catch (err) {
         setError('Failed to load deals.');
       } finally {
@@ -38,11 +42,17 @@ const DiscoverPage = () => {
     };
 
     loadDeals();
-  }, [presetParams]);
+  }, [presetParams, currentPage]);
 
   const handlePresetSelect = (id, params) => {
     setActivePreset(id);
     setPresetParams(params);
+    setCurrentPage(0);
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -67,6 +77,13 @@ const DiscoverPage = () => {
             {loading && <LoadingSpinner />}
             {error && <ErrorMessage message={error} />}
             {!loading && !error && <GamesGrid games={games} />}
+            {!loading && !error && (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
+            )}
           </div>
         </div>
       </PageContainer>

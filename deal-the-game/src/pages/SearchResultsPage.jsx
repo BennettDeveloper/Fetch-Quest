@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import AppShell from '../components/layout/AppShell';
 import PageContainer from '../components/layout/PageContainer';
@@ -6,14 +6,17 @@ import GamesGrid from '../components/discover/GamesGrid';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import ErrorMessage from '../components/common/ErrorMessage';
 import SectionHeader from '../components/common/SectionHeader';
+import Pagination from '../components/common/Pagination';
 import { searchDealsByTitle } from '../api/dealsApi';
 import { fetchStores } from '../api/storesApi';
 
 const SearchResultsPage = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
+  const currentPage = parseInt(searchParams.get('page') || '0', 10);
 
   const [results, setResults] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -30,9 +33,10 @@ const SearchResultsPage = () => {
         setError('');
 
         const storesMap = await fetchStores();
-        const data = await searchDealsByTitle(query, storesMap);
+        const { deals, totalPages: pages } = await searchDealsByTitle(query, storesMap, currentPage);
 
-        setResults(data);
+        setResults(deals);
+        setTotalPages(pages);
       } catch (err) {
         setError('Failed to search for games.');
       } finally {
@@ -41,7 +45,12 @@ const SearchResultsPage = () => {
     };
 
     loadSearchResults();
-  }, [query]);
+  }, [query, currentPage]);
+
+  const handlePageChange = (page) => {
+    setSearchParams({ q: query, page });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <AppShell>
@@ -60,7 +69,14 @@ const SearchResultsPage = () => {
           {error && <ErrorMessage message={error} />}
 
           {!loading && !error && query && results.length > 0 && (
-            <GamesGrid games={results} />
+            <>
+              <GamesGrid games={results} />
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
+            </>
           )}
 
           {!loading && !error && query && results.length === 0 && (
