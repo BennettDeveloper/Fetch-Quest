@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import AppShell from '../components/layout/AppShell';
 import PageContainer from '../components/layout/PageContainer';
@@ -6,43 +6,56 @@ import GameHero from '../components/game/GameHero';
 import PricePanel from '../components/game/PricePanel';
 import StoreOffersList from '../components/game/StoreOffersList';
 import GameStatsCard from '../components/game/GameStatsCard';
+import LoadingSpinner from '../components/common/LoadingSpinner';
+import ErrorMessage from '../components/common/ErrorMessage';
+import { fetchGameById } from '../api/gamesApi';
+import { fetchStores } from '../api/storesApi';
 
 const GameDetailsPage = () => {
   const { id } = useParams();
 
-  const mockGame = {
-    id,
-    title: 'Cyberpunk 2077',
-    image: 'https://placehold.co/600x400',
-    description: 'A futuristic open-world RPG with action and neon chaos.',
-    salePrice: '29.99',
-    normalPrice: '59.99',
-    savings: '50',
-    genre: 'Action RPG',
-    publisher: 'CD Projekt Red',
-    reviewScore: '86',
-    releaseDate: '2020-12-10',
-  };
+  const [game, setGame] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  const mockOffers = [
-    { id: 1, store: 'Steam', price: '29.99' },
-    { id: 2, store: 'Green Man Gaming', price: '27.49' },
-    { id: 3, store: 'Humble Store', price: '28.99' },
-  ];
+  useEffect(() => {
+    const loadGame = async () => {
+      try {
+        setLoading(true);
+        setError('');
+
+        const storesMap = await fetchStores();
+        const gameData = await fetchGameById(id, storesMap);
+
+        setGame(gameData);
+      } catch (err) {
+        setError('Failed to load game details.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadGame();
+  }, [id]);
 
   return (
     <AppShell>
       <PageContainer>
-        <div className="game-details-page">
-          <GameHero game={mockGame} />
+        {loading && <LoadingSpinner />}
+        {error && <ErrorMessage message={error} />}
 
-          <div className="game-details-grid">
-            <PricePanel game={mockGame} />
-            <GameStatsCard game={mockGame} />
+        {!loading && !error && game && (
+          <div className="game-details-page">
+            <GameHero game={game} />
+
+            <div className="game-details-grid">
+              <PricePanel game={game} />
+              <GameStatsCard game={game} />
+            </div>
+
+            <StoreOffersList offers={game.offers} />
           </div>
-
-          <StoreOffersList offers={mockOffers} />
-        </div>
+        )}
       </PageContainer>
     </AppShell>
   );

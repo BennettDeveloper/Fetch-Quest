@@ -7,7 +7,7 @@ const GameHero = ({ game }) => {
 
       <div className="game-hero-content">
         <h1>{game.title}</h1>
-        <p>{game.description}</p>
+        <p>Track live pricing, compare store offers, and find the best current deal.</p>
       </div>
     </section>
   );

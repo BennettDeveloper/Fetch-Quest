@@ -1,7 +1,6 @@
 import { API } from '../constants/api';
-import { STORE_MAP } from '../constants/stores';
 
-export const fetchFeaturedDeals = async () => {
+export const fetchFeaturedDeals = async (storesMap = {}) => {
   const response = await fetch(
     `${API.CHEAPSHARK_BASE}${API.ENDPOINTS.DEALS}?pageSize=12`
   );
@@ -12,18 +11,13 @@ export const fetchFeaturedDeals = async () => {
 
   const data = await response.json();
 
-  return data.map((deal) => {
-    const store = STORE_MAP[deal.storeID];
-
-    return {
-      id: deal.gameID,
-      title: deal.title,
-      image: deal.thumb,
-      salePrice: deal.salePrice,
-      normalPrice: deal.normalPrice,
-      savings: Number(deal.savings).toFixed(0),
-      store: store?.name || "Unknown Store",
-      storeLogo: store?.logo || null
-    };
-  });
+  return data.map((deal) => ({
+    id: deal.gameID,
+    title: deal.title,
+    image: deal.thumb,
+    salePrice: deal.salePrice,
+    normalPrice: deal.normalPrice,
+    savings: Number(deal.savings).toFixed(0),
+    store: storesMap[deal.storeID]?.name || `Store #${deal.storeID}`,
+  }));
 };

@@ -9,6 +9,7 @@ const GameStatsCard = ({ game }) => {
         <li><strong>Publisher:</strong> {game.publisher}</li>
         <li><strong>Review Score:</strong> {game.reviewScore}</li>
         <li><strong>Release Date:</strong> {game.releaseDate}</li>
+        <li><strong>Total Offers:</strong> {game.offers.length}</li>
       </ul>
     </section>
   );

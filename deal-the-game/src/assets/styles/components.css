@@ -165,6 +165,22 @@
   align-items: center;
 }
 
+.offer-link-button {
+  display: inline-block;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #6e7cff, #8b5cf6);
+  color: white;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.offer-link-button:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);

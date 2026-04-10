@@ -11,8 +11,17 @@ const StoreOffersList = ({ offers = [] }) => {
             <div>
               <h4>{offer.store}</h4>
               <p>${offer.price}</p>
+              <small>Retail: ${offer.retailPrice} • Save {offer.savings}%</small>
             </div>
-            <button>View Deal</button>
+
+            <a
+              href={`https://www.cheapshark.com/redirect?dealID=${offer.dealID}`}
+              target="_blank"
+              rel="noreferrer"
+              className="offer-link-button"
+            >
+              View Deal
+            </a>
           </div>
         ))}
       </div>

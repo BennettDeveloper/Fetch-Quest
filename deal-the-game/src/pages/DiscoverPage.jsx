@@ -6,6 +6,7 @@ import FiltersPanel from '../components/discover/FiltersPanel';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import ErrorMessage from '../components/common/ErrorMessage';
 import { fetchFeaturedDeals } from '../api/dealsApi';
+import { fetchStores } from '../api/storesApi';
 
 const DiscoverPage = () => {
   const [games, setGames] = useState([]);
@@ -15,8 +16,13 @@ const DiscoverPage = () => {
   useEffect(() => {
     const loadDeals = async () => {
       try {
-        const data = await fetchFeaturedDeals();
-        setGames(data);
+        setLoading(true);
+        setError('');
+
+        const storesMap = await fetchStores();
+        const deals = await fetchFeaturedDeals(storesMap);
+
+        setGames(deals);
       } catch (err) {
         setError('Failed to load featured deals.');
       } finally {
