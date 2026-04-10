@@ -1,6 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import SearchBar from '../common/SearchBar';
+import { ROUTES } from '../../constants/routes';
 
 const Navbar = () => {
   return (
@@ -12,6 +12,9 @@ const Navbar = () => {
         <nav className="nav-links">
           <Link to="/">Discover</Link>
           <Link to="/search">Search</Link>
+          <Link to={ROUTES.ROULETTE} className="nav-roulette-btn">
+            🎲 Deal Roulette
+          </Link>
         </nav>
       </div>
 
