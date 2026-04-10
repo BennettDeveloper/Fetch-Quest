@@ -423,3 +423,279 @@
   padding: 0.2rem 0.5rem;
   border-radius: 6px;
 }
+
+/* INSIGHT CARDS (DealScore, DealContext, PricePrediction) */
+.insight-card {
+  background: #12192b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.insight-card-title {
+  color: #f5f7ff;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Deal Score */
+.deal-score-display {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.deal-score-number {
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.deal-score-label {
+  font-size: 0.95rem;
+  color: #9ca8c7;
+}
+
+.deal-score-bar-track {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.deal-score-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.deal-score-breakdown {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.deal-score-breakdown li {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #9ca8c7;
+}
+
+.score-pts {
+  color: #c8d2ee;
+  font-weight: 600;
+}
+
+/* Deal Context */
+.deal-context-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  border: 1px solid;
+}
+
+.deal-context-icon {
+  font-size: 1.2rem;
+  line-height: 1.4;
+  flex-shrink: 0;
+}
+
+.deal-context-message {
+  font-size: 0.88rem;
+  color: #d5def6;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.deal-context-numbers {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.deal-context-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+}
+
+.deal-context-label {
+  color: #7a8aac;
+}
+
+.deal-context-value {
+  font-weight: 600;
+  color: #f0f4ff;
+}
+
+.deal-price-green {
+  color: #77f2a8;
+}
+
+.deal-context-muted {
+  color: #9ca8c7;
+  font-weight: 400;
+}
+
+/* Price Prediction */
+.price-prediction-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.price-prediction-icon {
+  font-size: 1.3rem;
+}
+
+.price-prediction-detail {
+  font-size: 0.88rem;
+  color: #9ca8c7;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Hero historical low price */
+.hero-hist-price {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #c8d2ee;
+  margin: 0;
+}
+
+.hero-savings-badge {
+  display: inline-block;
+  margin-top: 0.3rem;
+  background: #e05a3a;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+}
+
+/* ALTERNATIVES SECTION */
+.alternatives-section {
+  background: #12192b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.alternatives-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f5f7ff;
+  margin: 0;
+}
+
+.alternatives-title em {
+  font-style: normal;
+  color: #7c9cff;
+}
+
+.alternatives-loading {
+  color: #7a8aac;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.alternatives-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.alt-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 1rem;
+  background: #0f1628;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.alt-card:hover {
+  background: #16203a;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.alt-card-image {
+  width: 64px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+  background: #0d1324;
+}
+
+.alt-card-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.alt-card-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #f0f4ff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+.alt-card-store,
+.alt-card-meta {
+  font-size: 0.76rem;
+  color: #7a8aac;
+}
+
+.alt-card-prices {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+  flex-shrink: 0;
+}
+
+.alt-card-normal {
+  font-size: 0.78rem;
+  color: #6a7490;
+  text-decoration: line-through;
+}
+
+.alt-card-sale {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #77f2a8;
+}
+
+.alt-card-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fff;
+  background: #e05a3a;
+  padding: 0.15rem 0.4rem;
+  border-radius: 5px;
+}

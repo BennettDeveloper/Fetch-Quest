@@ -55,6 +55,23 @@ export const fetchRawgGameDetails = async (rawgGameId) => {
   return response.json();
 };
 
+export const fetchRawgSimilarGames = async (genreSlugs, excludeRawgId) => {
+  if (!RAWG_API_KEY || !genreSlugs?.length) return [];
+
+  const response = await fetch(
+    buildRawgUrl(API.ENDPOINTS.RAWG_GAMES, {
+      genres: genreSlugs.slice(0, 2).join(','),
+      ordering: '-metacritic',
+      page_size: 8,
+    })
+  );
+
+  if (!response.ok) return [];
+
+  const data = await response.json();
+  return (data.results || []).filter((g) => g.id !== excludeRawgId);
+};
+
 export const fetchRawgMetadataByTitle = async (title) => {
   const match = await searchRawgGameByTitle(title);
 
@@ -72,9 +89,11 @@ export const fetchRawgMetadataByTitle = async (title) => {
     released: details.released || 'Unknown',
     metacritic: details.metacritic ?? 'N/A',
     genres: details.genres?.map((genre) => genre.name) || [],
+    genreSlugs: details.genres?.map((genre) => genre.slug) || [],
     publishers: details.publishers?.map((publisher) => publisher.name) || [],
     developers: details.developers?.map((developer) => developer.name) || [],
     platforms: details.platforms?.map((item) => item.platform?.name).filter(Boolean) || [],
+    ratingsCount: details.ratings_count || 0,
     screenshots: [],
   };
 };
