@@ -25,6 +25,39 @@ This project integrates multiple public APIs to combine pricing + metadata:
 
 ---
 
+  I'd also want to add these key features to further spice up the web-application.
+
+  🔥 1. “Hidden Gems on Sale”
+
+Filter for:
+
+high rating
+low popularity
+big discount
+
+🎲 2. “Deal Roulette”
+
+Button:
+
+🎲 “Find me a random good deal”
+
+Instant engagement.
+
+🧠 3. “Mood-Based Discovery”
+
+User picks:
+
+“Chill”
+“Competitive”
+“Story-heavy”
+
+You map to genres + ratings + deals.
+
+4. Multiple pages
+Right now it's only one page of games but in the future I'd like you to be able to scroll through multiple games.
+
+
+
 ## Running the Project Locally
 
 Follow these steps to get everything running on your machine:
