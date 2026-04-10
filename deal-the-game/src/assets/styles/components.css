@@ -143,3 +143,18 @@
     transform: rotate(360deg);
   }
 }
+
+.game-card-store-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  color: #9ca8c7;
+}
+
+.store-logo {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  border-radius: 4px;
+}

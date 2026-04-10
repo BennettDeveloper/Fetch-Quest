@@ -7,10 +7,17 @@ const GameCard = ({ game }) => {
       <img src={game.image} alt={game.title} className="game-card-image" />
 
       <div className="game-card-content">
-        <h3>{game.title}</h3>
-        <p className="game-card-price">${game.salePrice}</p>
-        <p className="game-card-store">{game.store}</p>
-      </div>
+  <h3>{game.title}</h3>
+
+  <p className="game-card-price">${game.salePrice}</p>
+
+  <div className="game-card-store-row">
+    {game.storeLogo && (
+      <img src={game.storeLogo} alt={game.store} className="store-logo" />
+    )}
+    <span>{game.store}</span>
+  </div>
+</div>
     </Link>
   );
 };
