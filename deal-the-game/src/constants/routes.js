@@ -3,4 +3,5 @@ export const ROUTES = {
   GAME_DETAILS: '/game/:id',
   SEARCH: '/search',
   ROULETTE: '/roulette',
+  VIBES: '/vibes',
 };

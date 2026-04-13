@@ -12,6 +12,9 @@ const Navbar = () => {
         <nav className="nav-links">
           <Link to="/">Discover</Link>
           <Link to="/search">Search</Link>
+          <Link to={ROUTES.VIBES} className="nav-vibes-btn">
+            🎮 Vibe Check
+          </Link>
           <Link to={ROUTES.ROULETTE} className="nav-roulette-btn">
             🎲 Deal Roulette
           </Link>

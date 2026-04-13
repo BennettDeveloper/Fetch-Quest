@@ -1,5 +1,5 @@
 import { API } from '../constants/api';
-import { fetchRawgMetadataByTitle, fetchRawgSimilarGames } from './rawgApi';
+import { fetchRawgMetadataByTitle, fetchRawgSimilarGames, fetchGamesByMood } from './rawgApi';
 
 export const fetchGameById = async (gameId, storesMap = {}) => {
   const response = await fetch(
@@ -71,6 +71,66 @@ export const fetchGameById = async (gameId, storesMap = {}) => {
       dealID: deal.dealID,
     })),
   };
+};
+
+const fetchDealForTitle = async (rawgGame, storesMap) => {
+  const response = await fetch(
+    `${API.CHEAPSHARK_BASE}/deals?title=${encodeURIComponent(rawgGame.title)}&pageSize=1&sortBy=Price`
+  );
+  if (!response.ok) return null;
+
+  const deals = await response.json();
+  if (!deals.length) return null;
+
+  const deal = deals[0];
+
+  return {
+    id: deal.gameID,
+    title: rawgGame.title,
+    image: rawgGame.image || deal.thumb,
+    rating: rawgGame.rating,
+    genres: rawgGame.genres,
+    salePrice: deal.salePrice,
+    normalPrice: deal.normalPrice,
+    savings: Number(deal.savings).toFixed(0),
+    store: storesMap[deal.storeID]?.name || `Store #${deal.storeID}`,
+    hasDeal: true,
+  };
+};
+
+export const fetchVibesResults = async (genres, tags, storesMap = {}) => {
+  const rawgGames = await fetchGamesByMood(genres, tags);
+  if (!rawgGames.length) return [];
+
+  const results = await Promise.allSettled(
+    rawgGames.map((game) => fetchDealForTitle(game, storesMap))
+  );
+
+  const withDeals = [];
+  const withoutDeals = [];
+
+  results.forEach((result, i) => {
+    if (result.status === 'fulfilled' && result.value) {
+      withDeals.push(result.value);
+    } else {
+      // Include the RAWG game even without a deal so the UI can show it dimmed
+      withoutDeals.push({
+        id: null,
+        title: rawgGames[i].title,
+        image: rawgGames[i].image,
+        rating: rawgGames[i].rating,
+        genres: rawgGames[i].genres,
+        salePrice: null,
+        normalPrice: null,
+        savings: null,
+        store: null,
+        hasDeal: false,
+      });
+    }
+  });
+
+  // Games with deals first, then games without
+  return [...withDeals, ...withoutDeals];
 };
 
 export const fetchGameAlternatives = async (rawgId, genreSlugs, normalPrice, storesMap = {}) => {

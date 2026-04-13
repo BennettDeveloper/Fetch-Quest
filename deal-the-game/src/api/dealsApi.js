@@ -26,17 +26,38 @@ export const fetchFeaturedDeals = async (storesMap = {}, params = {}, pageNumber
   const totalPages = parseInt(response.headers.get('X-Total-Page-Count') || '1', 10);
   const data = await response.json();
 
-  const deals = data.map((deal) => ({
-    id: deal.gameID,
-    dealId: deal.dealID,
-    title: deal.title,
-    image: deal.thumb,
-    salePrice: deal.salePrice,
-    normalPrice: deal.normalPrice,
-    savings: Number(deal.savings).toFixed(0),
-    dealRating: parseFloat(deal.dealRating).toFixed(1),
-    store: storesMap[deal.storeID]?.name || `Store #${deal.storeID}`,
-  }));
+  const grouped = new Map();
+
+  for (const deal of data) {
+    const storeName = storesMap[deal.storeID]?.name || `Store #${deal.storeID}`;
+    const existing = grouped.get(deal.gameID);
+
+    if (!existing) {
+      grouped.set(deal.gameID, {
+        id: deal.gameID,
+        dealId: deal.dealID,
+        title: deal.title,
+        image: deal.thumb,
+        salePrice: deal.salePrice,
+        normalPrice: deal.normalPrice,
+        savings: Number(deal.savings).toFixed(0),
+        dealRating: parseFloat(deal.dealRating).toFixed(1),
+        store: storeName,
+        stores: [storeName],
+      });
+    } else {
+      existing.stores.push(storeName);
+      // Keep the best (lowest) price across stores
+      if (parseFloat(deal.salePrice) < parseFloat(existing.salePrice)) {
+        existing.salePrice = deal.salePrice;
+        existing.savings = Number(deal.savings).toFixed(0);
+        existing.dealRating = parseFloat(deal.dealRating).toFixed(1);
+        existing.store = storeName;
+      }
+    }
+  }
+
+  const deals = Array.from(grouped.values());
 
   const result = { deals, totalPages };
   dealsCache.set(cacheKey, result);

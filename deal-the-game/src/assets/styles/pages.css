@@ -609,6 +609,84 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/* VIBES PAGE */
+.vibes-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.vibes-header {
+  text-align: center;
+}
+
+.vibes-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #10b981, #6ee7b7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 0.5rem;
+  line-height: 1.2;
+}
+
+.vibes-subtitle {
+  color: #9ca8c7;
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.vibes-prompt {
+  text-align: center;
+  color: #7a8aac;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.vibes-results-meta {
+  font-size: 0.88rem;
+  color: #7a8aac;
+  margin: 0 0 1rem;
+}
+
+.deal-row--no-deal {
+  opacity: 0.45;
+  cursor: default;
+  pointer-events: none;
+}
+
+.vibes-no-deal-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #7a8aac;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.vibes-empty {
+  text-align: center;
+  padding: 3rem 2rem;
+  border-radius: 20px;
+  background: #12192b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.vibes-empty-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #f5f7ff;
+  margin: 0 0 0.5rem;
+}
+
+.vibes-empty-sub {
+  color: #7a8aac;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
 /* ROULETTE PAGE */
 .roulette-page {
   display: flex;

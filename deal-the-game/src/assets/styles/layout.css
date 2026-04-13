@@ -39,6 +39,22 @@
   gap: 1rem;
 }
 
+.nav-vibes-btn {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.nav-vibes-btn:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
 .nav-roulette-btn {
   padding: 0.4rem 0.9rem;
   border-radius: 999px;

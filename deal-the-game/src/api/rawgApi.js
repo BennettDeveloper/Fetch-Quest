@@ -87,6 +87,35 @@ export const fetchRawgSimilarGames = async (genreSlugs, excludeRawgId) => {
   return (data.results || []).filter((g) => g.id !== excludeRawgId);
 };
 
+export const fetchGamesByMood = async (genres = [], tags = []) => {
+  if (!RAWG_API_KEY) throw new Error('Missing RAWG API key.');
+  if (!genres.length && !tags.length) return [];
+
+  // RAWG tag slugs use hyphens — "story rich" → "story-rich"
+  const slugify = (str) => str.trim().toLowerCase().replace(/\s+/g, '-');
+
+  const response = await fetch(
+    buildRawgUrl(API.ENDPOINTS.RAWG_GAMES, {
+      genres: genres.join(','),
+      tags: tags.map(slugify).join(','),
+      ordering: '-rating',
+      page_size: 10,
+    })
+  );
+
+  if (!response.ok) return [];
+
+  const data = await response.json();
+
+  return (data.results || []).map((game) => ({
+    rawgId: game.id,
+    title: game.name,
+    image: game.background_image || '',
+    rating: game.rating || 0,
+    genres: game.genres?.map((g) => g.name) || [],
+  }));
+};
+
 export const fetchRawgMetadataByTitle = async (title) => {
   const match = await searchRawgGameByTitle(title);
 
